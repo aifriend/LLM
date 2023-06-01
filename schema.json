@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "capital_prestamo": {
+      "type": "int"
+    },
+    "comparecen": {
+      "type": "string"
+    }
+  }
+}
