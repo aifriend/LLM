@@ -2,8 +2,11 @@ import json
 import os
 import time
 
+from api_key import ApiKey
 from lib.ChatGPT import ChatGPT
 from lib.DocLoad import DocLoad
+
+os.environ["OPENAI_API_KEY"] = ApiKey.OPENAI_API_KEY
 
 
 def upsert_result(results, result):

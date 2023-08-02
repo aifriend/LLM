@@ -2,6 +2,8 @@
 
 from dotenv import load_dotenv, find_dotenv
 
+from api_key import ApiKey
+
 load_dotenv(find_dotenv())
 
 # Run basic query with OpenAI wrapper
@@ -19,7 +21,12 @@ from langchain.schema import (
 )
 from langchain.chat_models import ChatOpenAI
 
-chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+chat = ChatOpenAI(
+    model_name="gpt-3.5-turbo",
+    temperature=0,
+    max_tokens=2000,
+    openai_api_key=ApiKey.OPENAI_API_KEY
+)
 messages = [
     SystemMessage(content="You are an expert data scientist"),
     HumanMessage(content="Write a Python script that trains a neural network on simulated data ")
@@ -55,7 +62,7 @@ chain = LLMChain(llm=llm, prompt=prompt)
 # Run the chain only specifying the input variable.
 print(chain.run("autoencoder"))
 
-# Define a second prompt 
+# Define a second prompt
 
 second_prompt = PromptTemplate(
     input_variables=["ml_concept"],

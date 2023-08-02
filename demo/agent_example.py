@@ -1,18 +1,5 @@
-"""
-
-For complicated data extraction you need a robust library. The 
-[Kor Library](https://eyurtsev.github.io/kor/nested_objects.html) 
--created by [Eugene Yurtsev](https://twitter.com/veryboldbagel)- is an awesome tool just for this.
-
-We are going to explore using Kor with a practical use case.
-
-**Why is this important?**
-LLMs are great at text output, but they need extra help outputing information in a structure that we want. 
-A common request from developers is to get JSON data back from our LLMs.
-
-"""
-
 import json
+import os
 from datetime import datetime
 
 # Standard Helpers
@@ -36,12 +23,11 @@ def print_output(out_data):
 
 
 """
-Let's start off by creating our LLM. We're using gpt4 to take advantage of its increased ability to follow instructions
+Let's start off by creating our LLM
 """
 
 llm = ChatOpenAI(
-    model_name="gpt-3.5-turbo",  # Cheaper but less reliable
-    # model_name="gpt-4",
+    model_name="gpt-3.5-turbo",
     temperature=0,
     max_tokens=2000,
     openai_api_key=ApiKey.OPENAI_API_KEY
@@ -213,7 +199,7 @@ Kor is a really great way to extract actions from a user as well
 schema = Object(
     id="forecaster",
     description=(
-        "User is controling an app that makes financial forecasts. "
+        "User is controlling an app that makes financial forecasts. "
         "They will give a command to update a forecast in the future"
     ),
     attributes=[
@@ -248,16 +234,13 @@ print_output(output)
 ## Opening Attributes - Real World Example
 
 [Opening Attributes](https://twitter.com/GregKamradt/status/1643027796850253824) (my sample project for this application)
-
-If anyone wants to strategize on this project DM me on twitter
 """
-
+os.environ["OPENAI_API_KEY"] = ApiKey.OPENAI_API_KEY
 llm = ChatOpenAI(
     model_name="gpt-3.5-turbo",
-    # model_name="gpt-4",
     temperature=0,
     max_tokens=2000,
-    openai_api_key=openai_api_key
+    openai_api_key=ApiKey.OPENAI_API_KEY
 )
 
 """
@@ -266,7 +249,7 @@ We are going to be pulling jobs from Greenhouse. No API key is needed.
 
 
 def pull_from_greenhouse(board_token):
-    # If doing this in production, make sure you do retries and backoffs
+    # If doing this in production, make sure you do retries and backoff
 
     # Get your URL ready to accept a parameter
     url = f'https://boards-api.greenhouse.io/v1/boards/{board_token}/jobs?content=true'

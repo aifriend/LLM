@@ -528,3 +528,5 @@ ipython_config.py
 **/.serverless/
 **/*.log
 
+/api_key.py
+/.env
